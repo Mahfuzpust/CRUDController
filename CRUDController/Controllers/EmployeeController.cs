@@ -1,4 +1,5 @@
 ﻿using CRUDController.Data;
+using CRUDController.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUDController.Controllers
@@ -14,6 +15,34 @@ namespace CRUDController.Controllers
         {
             var result = context.Employees.ToList();
             return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Employee model)
+        {
+            if (ModelState.IsValid)
+            {
+                var emp = new Employee()
+                {
+                    Name = model.Name,
+                    City = model.City,
+                    State = model.State,
+                    Salary = model.Salary
+                };
+                context.Employees.Add(emp);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["error"] = "Empty field can not submit";
+                return View(model);
+            }
         }
     }
 }
