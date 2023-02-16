@@ -44,5 +44,13 @@ namespace CRUDController.Controllers
                 return View(model);
             }
         }
+
+        public IActionResult Delete(int id)
+        {
+            var emp = context.Employees.SingleOrDefault(u => u.Id == id);
+            context.Employees.Remove(emp);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
