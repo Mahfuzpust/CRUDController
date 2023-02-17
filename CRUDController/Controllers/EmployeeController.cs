@@ -37,6 +37,7 @@ namespace CRUDController.Controllers
                 };
                 context.Employees.Add(emp);
                 context.SaveChanges();
+                TempData["mgs"] = "Fields created!";
                 return RedirectToAction("Index");
             }
             else
@@ -51,6 +52,7 @@ namespace CRUDController.Controllers
             var emp = context.Employees.SingleOrDefault(u => u.Id == id);
             context.Employees.Remove(emp);
             context.SaveChanges();
+            TempData["mgs"] = "Fileds deleted!";
             return RedirectToAction("Index");
         }
 
@@ -82,6 +84,7 @@ namespace CRUDController.Controllers
             };
             context.Employees.Update(emp);
             context.SaveChanges();
+            TempData["mgs"] = "Fields updated!";
             return RedirectToAction("Index");
         }
     }
